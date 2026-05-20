@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clinic Booking System</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        input, select { margin: 5px; padding: 8px; }
+        button { padding: 10px; cursor: pointer; }
+        .success { color: green; }
+        .error { color: red; }
+        table { margin-top: 20px; border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+    </style>
+</head>
+
+<body>
+
+<h2>Clinic Appointment Booking</h2>
+
+<div>
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="phone" placeholder="Phone">
+
+    <br>
+
+    <input type="date" id="date">
+
+    <select id="time_slot">
+        <option value="">Select Time Slot</option>
+    </select>
+
+    <br>
+
+    <input type="text" id="reason" placeholder="Reason">
+
+    <br>
+
+    <button onclick="bookAppointment()">Book Appointment</button>
+
+    <p id="message"></p>
+</div>
+
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
