@@ -1,38 +1,56 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const API = "http://127.0.0.1:8000";
+    const API = process.env.REACT_APP_API; 
+    // IMPORTANT: must be in .env
 
     const login = async () => {
-        const res = await fetch(`${API}/admin/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username,
-                password
-            })
-        });
+        setLoading(true);
 
-        const data = await res.json();
+        try {
+            const res = await fetch(`${API}/admin/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            });
 
-        console.log("LOGIN RESPONSE:", data);
+            const data = await res.json();
 
-        if (res.ok) {
-            localStorage.setItem("token", data.access_token);
-            window.location.href = "/";
-        } else {
-            alert(data.detail);
+            console.log("LOGIN RESPONSE:", data);
+
+            if (res.ok) {
+                localStorage.setItem("token", data.access_token);
+
+                // ✅ correct SPA navigation
+                navigate("/dashboard");
+            } else {
+                alert(data.detail || "Login failed");
+            }
+
+        } catch (err) {
+            console.log(err);
+            alert("Network error");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div style={{ padding: 40 }}>
+
             <h2>Admin Login</h2>
 
             <input
@@ -53,7 +71,10 @@ export default function Login() {
 
             <br /><br />
 
-            <button onClick={login}>Login</button>
+            <button onClick={login} disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
+            </button>
+
         </div>
     );
 }

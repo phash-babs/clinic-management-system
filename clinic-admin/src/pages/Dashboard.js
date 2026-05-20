@@ -1,3 +1,11 @@
+useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        window.location.href = "/login";
+    }
+}, []);
+
 import React, { useEffect, useState } from "react";
 import AppointmentCalendar from "../components/AppointmentCalendar";
 
