@@ -31,7 +31,7 @@ export default function Dashboard() {
         reason: ""
     });
 
-    // ================= AUTH CHECK =================
+    // ================= AUTH =================
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -45,9 +45,8 @@ export default function Dashboard() {
 
     // ================= LOAD DATA =================
     const loadData = async () => {
-        setLoading(true);
-
         try {
+            setLoading(true);
             const data = await getAppointments();
             setAppointments(data);
         } catch (err) {
@@ -88,7 +87,7 @@ export default function Dashboard() {
     const updateAppointment = async () => {
         try {
             await updateAppointmentApi(editData.id, editData);
-            alert("Updated successfully");
+            alert("Appointment updated successfully");
             setShowModal(false);
             loadData();
         } catch (err) {
@@ -106,7 +105,7 @@ export default function Dashboard() {
     const deleteAppointment = async () => {
         try {
             await deleteAppointmentApi(selectedId);
-            alert("Deleted successfully");
+            alert("Appointment deleted successfully");
             setShowDeleteModal(false);
             loadData();
         } catch (err) {
@@ -127,9 +126,7 @@ export default function Dashboard() {
 
             {/* HEADER */}
             <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h1 className="text-3xl font-bold">Clinic Dashboard</h1>
-                </div>
+                <h1 className="text-3xl font-bold">Clinic Admin Dashboard</h1>
 
                 <button
                     onClick={logout}
@@ -169,7 +166,9 @@ export default function Dashboard() {
                 <button
                     onClick={() => setViewMode("table")}
                     className={`px-3 py-1 mr-2 rounded ${
-                        viewMode === "table" ? "bg-blue-600 text-white" : "bg-gray-200"
+                        viewMode === "table"
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-200"
                     }`}
                 >
                     Table
@@ -178,7 +177,9 @@ export default function Dashboard() {
                 <button
                     onClick={() => setViewMode("calendar")}
                     className={`px-3 py-1 rounded ${
-                        viewMode === "calendar" ? "bg-blue-600 text-white" : "bg-gray-200"
+                        viewMode === "calendar"
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-200"
                     }`}
                 >
                     Calendar
@@ -196,6 +197,7 @@ export default function Dashboard() {
             {viewMode === "table" ? (
 
                 <div className="bg-white rounded shadow overflow-x-auto">
+
                     <table className="w-full">
                         <thead className="bg-blue-600 text-white">
                             <tr>
@@ -240,6 +242,7 @@ export default function Dashboard() {
                             ))}
                         </tbody>
                     </table>
+
                 </div>
 
             ) : (
@@ -248,23 +251,100 @@ export default function Dashboard() {
 
             )}
 
-            {/* MODALS (optional simplified placeholders) */}
+            {/* ================= EDIT MODAL ================= */}
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-4 rounded">
-                        <h2>Edit Modal</h2>
-                        <button onClick={() => setShowModal(false)}>Close</button>
+
+                    <div className="bg-white p-6 rounded-xl w-full max-w-md">
+
+                        <h2 className="text-xl font-bold mb-4">Edit Appointment</h2>
+
+                        <input
+                            name="name"
+                            value={editData.name}
+                            onChange={handleChange}
+                            className="w-full border p-2 mb-2"
+                        />
+
+                        <input
+                            name="email"
+                            value={editData.email}
+                            onChange={handleChange}
+                            className="w-full border p-2 mb-2"
+                        />
+
+                        <input
+                            name="phone"
+                            value={editData.phone}
+                            onChange={handleChange}
+                            className="w-full border p-2 mb-2"
+                        />
+
+                        <input
+                            type="date"
+                            name="appointment_date"
+                            value={editData.appointment_date}
+                            onChange={handleChange}
+                            className="w-full border p-2 mb-2"
+                        />
+
+                        <input
+                            name="time_slot"
+                            value={editData.time_slot}
+                            onChange={handleChange}
+                            className="w-full border p-2 mb-2"
+                        />
+
+                        <input
+                            name="reason"
+                            value={editData.reason}
+                            onChange={handleChange}
+                            className="w-full border p-2 mb-2"
+                        />
+
+                        <button
+                            onClick={updateAppointment}
+                            className="bg-blue-600 text-white px-4 py-2 rounded mr-2"
+                        >
+                            Save
+                        </button>
+
+                        <button
+                            onClick={() => setShowModal(false)}
+                            className="bg-gray-300 px-4 py-2 rounded"
+                        >
+                            Cancel
+                        </button>
+
                     </div>
+
                 </div>
             )}
 
+            {/* ================= DELETE MODAL ================= */}
             {showDeleteModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-4 rounded">
-                        <h2>Delete?</h2>
-                        <button onClick={deleteAppointment}>Yes</button>
-                        <button onClick={() => setShowDeleteModal(false)}>No</button>
+
+                    <div className="bg-white p-6 rounded-xl text-center">
+
+                        <h2 className="text-xl font-bold mb-4">Delete Appointment?</h2>
+
+                        <button
+                            onClick={deleteAppointment}
+                            className="bg-red-600 text-white px-4 py-2 rounded mr-2"
+                        >
+                            Yes Delete
+                        </button>
+
+                        <button
+                            onClick={() => setShowDeleteModal(false)}
+                            className="bg-gray-300 px-4 py-2 rounded"
+                        >
+                            Cancel
+                        </button>
+
                     </div>
+
                 </div>
             )}
 
