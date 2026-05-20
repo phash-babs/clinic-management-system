@@ -28,6 +28,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
     "http://localhost:3000",
+    "https://clinic-management-system-7oue.vercel.app"
 ],
     allow_credentials=True,
     allow_methods=["*"],
