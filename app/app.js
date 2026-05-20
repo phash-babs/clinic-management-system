@@ -1,54 +1,64 @@
-const API = "http://127.0.0.1:8000";
+const API = "https://clinic-api-nfli.onrender.com";
 
-// Load available slots when date changes
-document.getElementById("date").addEventListener("change", async function () {
-    const date = this.value;
-
-    const res = await fetch(`${API}/available-slots/?appointment_date=${date}`);
-    const data = await res.json();
-
-    const dropdown = document.getElementById("time_slot");
-    dropdown.innerHTML = "<option value=''>Select Time Slot</option>";
-
-   const slots = data.available_slots || [];
-
-slots.forEach(slot => {
-    const option = document.createElement("option");
-    option.value = slot;
-    option.textContent = slot;
-    dropdown.appendChild(option);
-});
-});
-
-// Book appointment
-async function bookAppointment() {
-    const payload = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        reason: document.getElementById("reason").value,
-        appointment_date: document.getElementById("date").value,
-        time_slot: document.getElementById("time_slot").value
-    };
-
+// BOOK APPOINTMENT (PUBLIC)
+export const bookAppointment = async (data) => {
     const res = await fetch(`${API}/appointments/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
     });
 
-    const data = await res.json();
+    return await res.json();
+};
 
-    const msg = document.getElementById("message");
+// LOGIN
+export const loginAdmin = async (data) => {
+    const res = await fetch(`${API}/admin/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
 
-    if (res.ok) {
-        msg.innerHTML = "Appointment booked successfully!";
-        msg.className = "success";
-       
-    } else {
-        msg.innerHTML = data.detail;
-        msg.className = "error";
-    }
-}
+    return await res.json();
+};
 
+// GET APPOINTMENTS (ADMIN)
+export const getAppointments = async (token) => {
+    const res = await fetch(`${API}/admin/appointments/`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
 
+    return await res.json();
+};
+
+// UPDATE
+export const updateAppointmentApi = async (id, data, token) => {
+    const res = await fetch(`${API}/admin/appointments/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    });
+
+    return await res.json();
+};
+
+// DELETE
+export const deleteAppointmentApi = async (id, token) => {
+    const res = await fetch(`${API}/admin/appointments/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    return await res.json();
+};
