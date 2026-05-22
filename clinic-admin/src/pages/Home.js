@@ -1,3 +1,4 @@
+import ClinicBrand from "../components/ClinicBrand";
 import React, { useState } from "react";
 
 export default function Home() {
@@ -79,9 +80,11 @@ export default function Home() {
 
             <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg">
 
-                <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
-                    Book Appointment
-                </h1>
+    <ClinicBrand />
+
+    <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
+        Book Appointment
+    </h1>
 
                 <form
                     onSubmit={submitAppointment}

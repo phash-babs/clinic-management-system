@@ -1,24 +1,26 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
+import LandingPage from "./pages/LandingPage";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
     return (
         <BrowserRouter>
+
             <Routes>
 
-                {/* PATIENT PAGE */}
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<LandingPage />} />
 
-                {/* ADMIN LOGIN */}
+                <Route path="/book" element={<Home />} />
+
                 <Route path="/login" element={<Login />} />
 
-                {/* ADMIN DASHBOARD */}
                 <Route path="/dashboard" element={<Dashboard />} />
 
             </Routes>
+
         </BrowserRouter>
     );
 }

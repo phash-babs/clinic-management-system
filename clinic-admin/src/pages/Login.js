@@ -1,3 +1,4 @@
+import ClinicBrand from "../components/ClinicBrand";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -48,33 +49,39 @@ export default function Login() {
         }
     };
 
-    return (
-        <div style={{ padding: 40 }}>
+   return (
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
 
-            <h2>Admin Login</h2>
+        <div className="bg-white p-10 rounded-2xl shadow-lg w-full max-w-md">
+
+            <ClinicBrand />
 
             <input
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                className="w-full border p-3 rounded-lg mb-4"
             />
-
-            <br /><br />
 
             <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-full border p-3 rounded-lg mb-6"
             />
 
-            <br /><br />
-
-            <button onClick={login} disabled={loading}>
+            <button
+                onClick={login}
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg"
+            >
                 {loading ? "Logging in..." : "Login"}
             </button>
 
         </div>
-    );
+
+    </div>
+);
 }

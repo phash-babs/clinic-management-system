@@ -1,3 +1,4 @@
+import ClinicBrand from "../components/ClinicBrand";
 import React, { useEffect, useState } from "react";
 import AppointmentCalendar from "../components/AppointmentCalendar";
 import {
@@ -119,22 +120,25 @@ export default function Dashboard() {
         localStorage.removeItem("token");
         window.location.href = "/login";
     };
+   
 
     // ================= UI =================
     return (
         <div className="min-h-screen bg-gray-100 p-8">
 
-            {/* HEADER */}
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold">Clinic Admin Dashboard</h1>
+          {/* HEADER */}
+<div className="flex justify-between items-center mb-6">
 
-                <button
-                    onClick={logout}
-                    className="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                    Logout
-                </button>
-            </div>
+    <ClinicBrand />
+
+    <button
+        onClick={logout}
+        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg h-fit"
+    >
+        Logout
+    </button>
+
+</div>
 
             {/* SEARCH */}
             <div className="flex gap-4 mb-4">
@@ -350,4 +354,5 @@ export default function Dashboard() {
 
         </div>
     );
+    
 }
