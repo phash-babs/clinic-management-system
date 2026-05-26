@@ -140,6 +140,47 @@ export default function Dashboard() {
 
 </div>
 
+{/* ADMIN QUICK ACTIONS */}
+<div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+
+    <button className="bg-blue-600 hover:bg-blue-700 text-white p-5 rounded-xl shadow text-left transition hover:-translate-y-1">
+        <h3 className="text-lg font-semibold">Patients</h3>
+        <p className="text-sm mt-2">
+            View all registered patients
+        </p>
+    </button>
+
+    <button className="bg-green-600 hover:bg-green-700 text-white p-5 rounded-xl shadow text-left transition hover:-translate-y-1">
+        <h3 className="text-lg font-semibold">Admissions</h3>
+        <p className="text-sm mt-2">
+            Manage patient admission process
+        </p>
+    </button>
+
+    <button className="bg-purple-600 hover:bg-purple-700 text-white p-5 rounded-xl shadow text-left transition hover:-translate-y-1">
+        <h3 className="text-lg font-semibold">Physician Orders</h3>
+        <p className="text-sm mt-2">
+            Create and manage physician orders
+        </p>
+    </button>
+
+    <button className="bg-red-600 hover:bg-red-700 text-white p-5 rounded-xl shadow text-left transition hover:-translate-y-1">
+        <h3 className="text-lg font-semibold">Discharges</h3>
+        <p className="text-sm mt-2">
+            Handle discharged patients
+        </p>
+    </button>
+
+    <button className="bg-orange-500 hover:bg-orange-600 text-white p-5 rounded-xl shadow text-left transition hover:-translate-y-1">
+        <h3 className="text-lg font-semibold">Follow Up</h3>
+        <p className="text-sm mt-2">
+            Schedule patient follow-up care
+        </p>
+    </button>
+
+</div>
+
+
             {/* SEARCH */}
             <div className="flex gap-4 mb-4">
                 <input
