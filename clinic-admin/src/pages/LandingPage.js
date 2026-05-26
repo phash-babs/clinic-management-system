@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ClinicBrand from "../components/ClinicBrand";
 import { useEffect, useState } from "react";
 
 export default function LandingPage() {
