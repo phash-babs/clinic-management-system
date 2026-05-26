@@ -16,17 +16,17 @@ export default function LandingPage() {
     // AUTO CHANGE BACKGROUND
     useEffect(() => {
 
-        const interval = setInterval(() => {
+    const interval = setInterval(() => {
 
-            setCurrentBg((prev) =>
-                prev === backgrounds.length - 1 ? 0 : prev + 1
-            );
+        setCurrentBg((prev) =>
+            prev === backgrounds.length - 1 ? 0 : prev + 1
+        );
 
-        }, 5000);
+    }, 5000);
 
-        return () => clearInterval(interval);
+    return () => clearInterval(interval);
 
-    }, []);
+}, [backgrounds.length]);
 
     return (
 
